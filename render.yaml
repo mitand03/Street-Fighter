@@ -1,0 +1,9 @@
+services:
+  - name: street-fighter
+    type: web
+    runtime: static
+    buildCommand: pip install pygbag && python -m pygbag --build arena.py
+    staticPublishPath: ./build/web
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0

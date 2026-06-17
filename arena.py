@@ -1,7 +1,7 @@
+import asyncio
 import pygame
 from scripts.shortcut import *
 from scripts.sprite_manager import load_sprite_sequence,load_sprite_sequence2
-import sys
 from scripts.entities import PhysicsEntity
 from scripts.powers import Sphere
 import random
@@ -12,8 +12,8 @@ class Game:
         pygame.mixer.init()
 
         #Sounds
-        self.jump_sound = pygame.mixer.Sound('Sounds/hook.mp3')
-        self.hit_sound = pygame.mixer.Sound('Sounds/hit.mp3')
+        self.jump_sound = pygame.mixer.Sound('Sounds/hook.ogg')
+        self.hit_sound = pygame.mixer.Sound('Sounds/hit.ogg')
 
 
         # Set up the screen (width, height)
@@ -376,8 +376,9 @@ class Game:
 
 
 
-    def run(self):
-        
+    async def run(self):
+        clock = pygame.time.Clock()
+
         while True:
             mouse_pos=pygame.mouse.get_pos()
 
@@ -394,10 +395,10 @@ class Game:
 
                  for event in pygame.event.get():
                     if event.type == pygame.QUIT:  # Quit when window is closed
-                        sys.exit()
+                        return
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.fight_rect.collidepoint(mouse_pos):
-                            
+
                             self.running = True
 
             else:
@@ -411,7 +412,7 @@ class Game:
                 # Check for events (keyboard, mouse, etc.)
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:  # Quit when window is closed
-                        sys.exit()
+                        return
 
                     self.player.handle_input(event)
                     self.player2.handle_input(event)
@@ -546,11 +547,9 @@ class Game:
             pygame.display.flip()
 
             # Limit the frame rate to 60 FPS
-            pygame.time.Clock().tick(60)
-
-        pygame.quit()
-        sys.exit()
+            clock.tick(60)
+            await asyncio.sleep(0)  # yield control back to the browser's event loop
 
 
 if __name__ == "__main__":
-    Game().run()
+    asyncio.run(Game().run())
