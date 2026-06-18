@@ -2,7 +2,7 @@ services:
   - name: street-fighter
     type: web
     runtime: static
-    buildCommand: pip install pygbag && python -m pygbag --build main.py
+    buildCommand: pip install pygbag && python -m pygbag --ume_block 0 --build main.py
     staticPublishPath: ./build/web
     envVars:
       - key: PYTHON_VERSION
