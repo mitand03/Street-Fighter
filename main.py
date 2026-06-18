@@ -1,4 +1,10 @@
 import asyncio
 from arena import Game
 
-asyncio.run(Game().run())
+
+async def main():
+    game = Game()
+    await game.run()
+
+
+asyncio.run(main())
