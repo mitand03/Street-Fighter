@@ -96,7 +96,6 @@ class PhysicsEntity:
         if not self.is_jumping:  # Only jump if not already in the air
             self.is_jumping = True
             self.jump_velocity = -17  # Negative velocity to move upwards
-            self.game.jump_sound.play()
 
     def slide(self):
         if not self.is_sliding :  # Only start sliding if not already sliding

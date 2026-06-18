@@ -9,12 +9,6 @@ import random
 class Game:
     def __init__(self):
         pygame.init()
-        pygame.mixer.init()
-
-        #Sounds
-        self.jump_sound = pygame.mixer.Sound('Sounds/hook.ogg')
-        self.hit_sound = pygame.mixer.Sound('Sounds/hit.ogg')
-
 
         # Set up the screen (width, height)
         self.screen = pygame.display.set_mode((900, 480))
@@ -335,7 +329,6 @@ class Game:
 
             # Check collision with player 2 (Knight)
             if knife_rect.colliderect(self.player2_rect) and not self.player2.is_defending:
-                self.hit_sound.play()
                 self.knifes.remove(knife)  # Remove the knife on collision
                 self.player2.health-=10
             else:
@@ -367,7 +360,6 @@ class Game:
             sword.update()
             sword_rect = pygame.Rect(sword.pos[0], sword.pos[1], 30, 10)  # Adjust size based on knife image
             if sword_rect.colliderect(self.player_rect):
-                self.hit_sound.play()
                 self.swords.remove(sword)
                 self.player.health-=30
             sword.render(self.screen, sword.pos,'SWORD.png')
